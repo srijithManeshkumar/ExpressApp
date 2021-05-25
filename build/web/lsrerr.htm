@@ -1,0 +1,25 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head><title>Express Error page</title>
+<script language = "JavaScript">
+<!-- hide me
+var my_continue = setTimeout("goToLoginPage();", 5000);
+function goToLoginPage()
+{
+	window.location = "LoginCtlr";
+}
+// show me -->
+</script>
+</head>
+<body>
+<h1>You are not logged in to <i>Express</i> <br>or your session has timed out! </b></h1>
+<p>You will be redirected to the login page or select the continue button to continue. </p>
+<form action="LoginCtlr" method="POST">
+<center>
+<input type="SUBMIT" name="submitbutton" value="Continue">
+
+<input type="HIDDEN" name="originating" value="lsrerr">
+</form>
+<hr>
+</body>
+</html>

@@ -1,0 +1,9 @@
+<project name="BpqWebService" default="generate-client">
+   <target name="generate-client">
+     <clientgen wsdl="BpqWebServiceExport.wsdl"
+                packageName="bpqwebservice"
+                clientJar="BpqWebService_client.jar"
+/>
+
+   </target>
+</project>

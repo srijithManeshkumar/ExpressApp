@@ -1,0 +1,617 @@
+
+
+
+
+
+
+
+
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<title>ALLTEL Express</title>
+<SCRIPT LANGUAGE = "JavaScript">
+var sessiontimer = null;
+
+var secs = (90 * 60);
+var alertMsg = "";
+
+function showSessionTimer()
+{
+	if (secs==0)
+	{
+		window.status = "[SESSION EXPIRED]";
+
+		alertMsg = "expressAlert.jsp?msg=" + "Your session has expired due to inactivity.<br>You will need to login again to perform any activity.<br>";
+		showModelessDialog(alertMsg, window, "dialogWidth:500px;dialogHeight:120px;center:yes;status:no;resizable:no;help:no");
+	}
+	else
+	{
+		mi = Math.floor(secs/60);
+		ss = secs % 60;
+		if (ss < 10) 
+		{
+			ss = "0" + ss;
+		}
+
+		window.status = " [Session Timer " + mi + ":" + ss + "]";
+		sessiontimer = self.setTimeout("showSessionTimer()", 1000)
+		secs = secs - 1;
+
+		if (secs == 120)
+		{
+			alertMsg = "expressAlert.jsp?msg=" + "Due to inactivity your Express Session will expire in 2 minutes.<br>Please perform an Express action, otherwise you will be required to log in again.<br>";
+
+			showModelessDialog(alertMsg, window, "dialogWidth:500px;dialogHeight:120px;center:yes;status:no;resizable:no;help:no");
+		}
+	}
+}
+
+showSessionTimer();
+
+</SCRIPT>
+<head>
+<LINK rel=stylesheet type="text/css" HREF="application.css">
+</head>
+<body bgcolor="#ffffff" LEFTMARGIN=0 TOPMARGIN=0 MARGINWIDTH=0 MARGINHEIGHT=0>
+
+<table width="100%" align=left border=0 cellspacing=0 cellpadding=1>
+
+<tr>
+	<td width="25%" align=left><A NAME="topofpage"><img src="images/lsr.gif"></A></td>
+
+	<td width="15%" valign=top>
+		<table border=0 cellspacing=0 cellpadding=5>
+
+		<tr><td><A HREF="RequestListCtlr">&nbsp;Orders&nbsp;</A></td></tr>
+
+		<tr><td><A HREF="PreorderListCtlr">&nbsp;Preorders&nbsp;</A></td></tr>
+
+		</table>
+	</td>
+
+	<td width="15%" valign=top>
+		<table border=0 cellspacing=0 cellpadding=5>
+
+		<tr><td><A HREF="DslListCtlr">&nbsp;DSL&nbsp;Orders&nbsp;</A></td></tr>
+
+		<tr><td><A HREF="MenuView.jsp?menunmbr=1">&nbsp;Table&nbsp;Admin&nbsp;</A></td></tr>
+
+		</table>
+	</td>
+
+	<td width="15%" valign=top>
+		<table border=0 cellspacing=0 cellpadding=5>
+
+		<tr><td><A HREF="TableAdminCtlr?tblnmbr=3">&nbsp;User&nbsp;Admin&nbsp;</A></td></tr>
+
+		<tr><td><A HREF="MenuView.jsp?menunmbr=2">&nbsp;Reports&nbsp;</A></td></tr>
+
+		</table>
+	</td>
+
+	<td width="15%" valign=top>
+		<table border=0 cellspacing=0 cellpadding=5>
+
+		<tr><td><A HREF="UserOptions.jsp">&nbsp;User&nbsp;Options&nbsp;</A></td></tr>
+
+		<tr><td><A HREF="Help.jsp">&nbsp;Help&nbsp;</A></td></tr>
+
+		</table>
+	</td>
+
+	<td width="15%" valign=top>
+		<table border=0 cellspacing=0 cellpadding=5>
+
+		<tr><td><A HREF="LoginCtlr?sevent=logout">&nbsp;Logout&nbsp;</A></td></tr>
+
+		<tr><td>&nbsp;&nbsp;</td></tr>
+
+		</table>
+	</td>
+
+	<td width="10%" valign=top>
+		<table border=0 cellspacing=0 cellpadding=5>
+		<tr><td><a href="ExpressHome.jsp">Home</a></td></tr>
+		<tr><td>UserID:&nbsp;master</td></tr>
+		</table>
+	</td>
+</tr>
+<tr><td colspan=7><HR></td></tr>
+</table>
+<script language = "JavaScript">
+<!-- hide me
+function maxCheck(formName, elementDesc, element, maxlen)
+{
+	var q = eval("window.document." + formName + "." + element + ".value.length");
+	if (q > maxlen)
+	{
+		var msg="Input field " + elementDesc + " has a maximum length of " + maxlen + " characters." +
+			" Current value has " + q + " characters. Please reduce size or data will be truncated.";
+		alert(msg);
+		return false;
+	}
+	return true;
+}
+
+var submitcount=0;
+function checkOnSubmit()
+{
+        if (submitcount ==0)
+        {       submitcount=1;
+                return true;
+        }
+        else
+        {       alert("Please wait...Form was already submitted !!");
+                return false;
+        }
+}
+
+// show me -->
+</script>
+
+<BR CLEAR=ALL>
+
+
+
+
+
+
+
+<%@ page import java.util.Date"%>
+ 
+ 
+ 
+
+
+
+ 
+ 
+ 
+ 
+ 
+
+
+<script language = "JavaScript">
+// Edris, validating dates on client side.
+var dtStr = "-"
+function daysInFebruary (year){
+    return (((year % 4 == 0) && ( (!(year % 100 == 0)) || (year % 400 == 0))) ? 29 : 28 );
+}
+function daysInMonth( month, year ) {
+	if (month == 4 || month ==6 ||  month == 9||  month == 11) {
+		return 30;
+	}
+	else if (month == 2) { 
+		return daysInFebruary(year);
+	}
+	return 31;
+}
+function isNumber( str ){
+	var i;
+	
+    for (i = 0; i < str.length; i++){   
+        var chr = str.charAt(i);
+        if (((chr < "0") || (chr > "9"))) 
+        return false;
+    }
+    return true;
+}
+
+function isValidDate( strDate){
+	// rid of whitespace in the date string.
+	if( strDate.length > 10 || strDate.length < 6 ){
+		alert("Wrong Date format! Please use the following format and submit again: mm/dd/yyyy")
+		return false
+	}
+	var separator1_pos = strDate.indexOf(dtStr);
+	var separator2_pos = strDate.indexOf(dtStr, separator1_pos+1);
+	var strMonth = strDate.substring(0,separator1_pos);
+	var strDay = strDate.substring(separator1_pos+1,separator2_pos);
+	var strYear = strDate.substring(separator2_pos+1);
+	var nMonth = parseInt(strMonth, 10)
+	var nDay = parseInt(strDay, 10 )
+	var nYear = parseInt(strYear,10)
+	if( separator1_pos <=  -1 || separator2_pos <= -1){
+		alert("Please use the following format when entering dates: mm/dd/yyyy")
+		return false	
+	}
+	if ( strMonth.length < 1 || nMonth < 1 || nMonth > 12 ||  !isNumber(strMonth)){	
+		alert("Please enter a valid Month")	
+		return false
+	}
+
+	if (strDay.length<1 || nDay < 1 || nDay > 31 || ( nMonth == 2 && nDay > daysInFebruary(nYear)) || nDay > daysInMonth(nMonth, nYear) ||  !isNumber(strDay)){
+		alert("Please enter a valid Day of the Month")
+		return false
+	}
+	if ( strYear.length != 4 || nYear==0 ||  !isNumber(strYear)){
+		alert(strYear +" is not a valid year, please enter a 4 digit year between "+minYear+" and "+maxYear)
+		return false
+	}	
+	return true
+}
+
+function beforeSubmitArchive()
+{
+	var m1 = document.forms[0].startDate_mnth.options[document.forms[0].startDate_mnth.selectedIndex].value;
+	var d1 = 0;
+	var y1 = document.forms[0].startDate_yr.options[document.forms[0].startDate_yr.selectedIndex].value;
+	var m2 = document.forms[0].startDate_mnth_end.options[document.forms[0].startDate_mnth_end.selectedIndex].value;
+	var d2 = 0;
+	var y2 = document.forms[0].startDate_yr_end.options[document.forms[0].startDate_yr_end.selectedIndex].value;
+   
+   	d2 = daysInMonth( m2, y2 ); // make to date being the last day of the month;
+   	d1 = daysInMonth( m1. y1 ) ;
+    d1 = d1 / d1; // make from date being the 1st of the month;
+    var strDate1 = m1 + "-" + d1  + "-" + y1;
+    var strDate2 = m2 + "-" + d2  + "-" + y2;
+    if ( isValidDate( strDate1 )==false || isValidDate(strDate2) == false ) {
+			return false
+	}
+	document.forms[0].nt_startDate1.value = strDate1;
+	document.forms[0].nt_startDate2.value = strDate2; 	
+    return true;
+   
+}
+
+function resetToDefault(){
+	document.forms[0].resetflag.value = 'yes';
+	document.forms[0].submit();
+} 
+</SCRIPT>
+
+<table align=center width="100%" cellspacing=0 cellpadding=0>
+  <tr>
+    <TH width="100%" align=center bgcolor="#336699"><SPAN class="barheader">Express&nbsp;Archived&nbsp;Messages</SPAN> </th>
+    </th>
+  </tr>
+</table>
+<!--
+<BR CLEAR=ALL>
+
+	<TABLE width=75% align=center border=1 cellspacing=0 cellpadding=0>
+		<TR><TD align=center><b>Messages from last 3 months (most recently expired listed first)</b><BR></TD></TR>
+	</TABLE><BR CLEAR=ALL>
+-->
+<!--********************** FORM SECTION ********************-->
+<form action="ExpressHomeArchive.jsp" onSubmit="return beforeSubmitArchive();" method="POST">
+<table  align=center width="75%" cellspacing=2 cellpadding=1>
+  <tr>
+  	<td colspan=2 class=tHeader>
+  		Express Archived Messages Form
+  	
+  	</tr>
+  	<tr>
+  		<td class=rowheader>
+  			Message Title:
+   		</td>
+	  	<td>
+	  		<input type="TEXT" size="50" maxLength="200" NAME="titlefield" VALUE="">
+	  	</td>
+  	</tr>
+  	<tr>
+  		<TD align=left; class=rowheader >Posted Date <i>(MM/YYYY)</i>:</TD>
+		<TD>From<SELECT name="startDate_mnth">
+<OPTION value="01">01<OPTION value="02">02<OPTION value="03">03<OPTION value="04">04<OPTION value="05">05<OPTION value="06">06<OPTION value="07">07<OPTION value="08">08<OPTION value="09">09<OPTION value="10">10<OPTION value="11">11<OPTION SELECTED value="12">12</SELECT><SELECT name="startDate_yr"> <OPTION value="2001">2001<OPTION value="2002">2002<OPTION value="2003">2003<OPTION SELECTED value="2004">2004<OPTION value="2005">2005<OPTION value="2006">2006<OPTION value="2007">2007<OPTION value="2008">2008<OPTION value="2009">2009<OPTION value="2010">2010</SELECT> &nbsp;&nbsp;&nbsp;To&nbsp;&nbsp;&nbsp;
+			<SELECT name="startDate_mnth_end">
+<OPTION value="01">01<OPTION value="02">02<OPTION SELECTED value="03">03<OPTION value="04">04<OPTION value="05">05<OPTION value="06">06<OPTION value="07">07<OPTION value="08">08<OPTION value="09">09<OPTION value="10">10<OPTION value="11">11<OPTION value="12">12</SELECT><SELECT name="startDate_yr_end"> <OPTION value="2001">2001<OPTION value="2002">2002<OPTION value="2003">2003<OPTION value="2004">2004<OPTION SELECTED value="2005">2005<OPTION value="2006">2006<OPTION value="2007">2007<OPTION value="2008">2008<OPTION value="2009">2009<OPTION value="2010">2010</SELECT> <br>
+		</TD>
+	</tr>
+	
+	<tr>
+	<td align=left; class=rowheader>Notice Type:</td>
+	<td>
+			<select name="Noticetype" size=1>
+<option value="-1" selected>Select Notice Type</option>
+<option value="0">Product and Service Notice</option>
+<option value="1">Process Notice</option>
+<option value="2">Express Enhancement Notice</option>
+</select>
+
+		</td>
+	</tr>	
+	<td align=left; class=rowheader>State:</td>
+	<td>
+			<select name="state" size=1>
+<option value="__">All States</option>
+<option value="AL">Alabama</option>
+<option value="AK">Alaska</option>
+<option value="AZ">Arizona</option>
+<option value="AR">Arkansas</option>
+<option value="CA">California</option>
+<option value="CO">Colorado</option>
+<option value="CT">Connecticut</option>
+<option value="DE">Delaware</option>
+<option value="DC">District of Columbia</option>
+<option value="FL">Florida</option>
+<option value="GA">Georgia</option>
+<option value="HI">Hawaii</option>
+<option value="ID">Idaho</option>
+<option value="IL">Illinois</option>
+<option value="IN">Indiana</option>
+<option value="IA">Iowa</option>
+<option value="KS">Kansas</option>
+<option value="KY">Kentucky</option>
+<option value="LA">Louisiana</option>
+<option value="ME">Maine</option>
+<option value="MD">Maryland</option>
+<option value="MA">Massachusetts</option>
+<option value="MI">Michigan</option>
+<option value="MN">Minnesota</option>
+<option value="MS">Mississippi</option>
+<option value="MO">Missouri</option>
+<option value="MT">Montana</option>
+<option value="NE">Nebraska</option>
+<option value="NV">Nevada</option>
+<option value="NH">New Hampshire</option>
+<option value="NJ">New Jersey</option>
+<option value="NM">New Mexico</option>
+<option value="NY">New York</option>
+<option value="NC">North Carolina</option>
+<option value="ND">North Dakota</option>
+<option value="OH">Ohio</option>
+<option value="OK">Oklahoma</option>
+<option value="OR">Oregon</option>
+<option value="PA">Pennsylvania</option>
+<option value="RI">Rhode Island</option>
+<option value="SC">South Carolina</option>
+<option value="TN">Tennessee</option>
+<option value="TX">Texas</option>
+<option value="UT">Utah</option>
+<option value="VT">Vermont</option>
+<option value="VA">Virginia</option>
+<option value="WA">Washington</option>
+<option value="WV">West Virginia</option>
+<option value="WI">Wisconsin</option>
+<option value="WY">Wyoming</option>
+</select>
+
+		</td>
+	</tr>	
+	
+	
+	<tr><td colspan=2 align=center>
+		<INPUT TYPE="RESET" onclick="resetToDefault();"  value="Clear Form">&nbsp;&nbsp;&nbsp;&nbsp;
+		<INPUT TYPE="SUBMIT" NAME="SUBMITBUTTON" VALUE="Submit">
+		</td>
+	</tr>
+ </table>	
+<HR width=100%>
+<input type="hidden" name="nt_startDate1" value=""> 
+<input type="hidden" name="nt_startDate2" value=""> 
+<input type="hidden" name="resetflag" value=""> 
+</form>
+<TABLE width="75%" align="center" cellspacing="1" cellpadding="1">
+			<TR class=tHeader>Posted Date / Title / Note</td></tr>
+		
+				<TR class=roweven>
+				
+				
+				<TD class=smaller align=center valign=top>
+				<span class=smallNote>Wednesday February  16, 2005 12:00 AM</span><br><br>
+				<span class=notetitle>Nebraska Rate Increase</span><br><Br>
+				<a href=docs/NERateInc0305.doc>Bill Message - Nebraska Rate Increase</a><br>
+				</td>
+				</TR>	
+				<tr><td>&nbsp;</td></tr>	
+			
+					<TR class= rowodd>
+				
+				
+				<TD class=smaller align=center valign=top>
+				<span class=smallNote>Friday    January   28, 2005 12:00 AM</span><br><br>
+				<span class=notetitle>VOICE MAIL</span><br><Br>
+				<a href=docs/VmailMsgMarch.pdf>All States (except MS) - Voice Mail</a><br>
+				</td>
+				</TR>	
+				<tr><td>&nbsp;</td></tr>	
+			
+				<TR class=roweven>
+				
+				
+				<TD class=smaller align=center valign=top>
+				<span class=smallNote>Friday    January   28, 2005 12:00 AM</span><br><br>
+				<span class=notetitle>BILL MESSAGE/601 & 769 AREA CODE INFO</span><br><Br>
+				<a href=docs/MS601769-Mar2005.pdf>Mississippi  (MS) 601 and 769 Area Code Information</a><br>
+				</td>
+				</TR>	
+				<tr><td>&nbsp;</td></tr>	
+			
+					<TR class= rowodd>
+				
+				
+				<TD class=smaller align=center valign=top>
+				<span class=smallNote>Monday    March     07, 2005 12:00 AM</span><br><br>
+				<span class=notetitle>test messagge 2</span><br><Br>
+				TEST message<br>line 2
+				</td>
+				</TR>	
+				<tr><td>&nbsp;</td></tr>	
+			
+				<TR class=roweven>
+				
+				
+				<TD class=smaller align=center valign=top>
+				<span class=smallNote>Monday    March     07, 2005 12:00 AM</span><br><br>
+				<span class=notetitle>TEST TITLE</span><br><Br>
+				This is the text of the message -with no hyperlinks.
+				</td>
+				</TR>	
+				<tr><td>&nbsp;</td></tr>	
+			
+					<TR class= rowodd>
+				
+				
+				<TD class=smaller align=center valign=top>
+				<span class=smallNote>Tuesday   January   04, 2005 12:00 AM</span><br><br>
+				<span class=notetitle>DO NOT CALL REGISTRY</span><br><Br>
+				<a href=docs/NatDoNotCallJan.pdf>All States - Do Not Call Information </a><br><br>
+				</td>
+				</TR>	
+				<tr><td>&nbsp;</td></tr>	
+			
+				<TR class=roweven>
+				
+				
+				<TD class=smaller align=center valign=top>
+				<span class=smallNote>Friday    January   28, 2005 12:00 AM</span><br><br>
+				<span class=notetitle>WIRELINE PROTECTION PACK</span><br><Br>
+				<font size=+1>February Messages</font><br><hl>
+<a href=docs/FebWLNPromo.pdf>All States - Wireline Protection Pack</a><br>
+				</td>
+				</TR>	
+				<tr><td>&nbsp;</td></tr>	
+			
+					<TR class= rowodd>
+				
+				
+				<TD class=smaller align=center valign=top>
+				<span class=smallNote>Friday    January   28, 2005 12:00 AM</span><br><br>
+				<span class=notetitle>ALLENTOWN FRANCHISE AGREEMENT</span><br><Br>
+				<font size=+1>February Messages</font><br><hl>
+<a href=docs/GAAllentownFranch.doc>GA - Allentown Franchise Agreement</a><br><br>
+				</td>
+				</TR>	
+				<tr><td>&nbsp;</td></tr>	
+			
+				<TR class=roweven>
+				
+				
+				<TD class=smaller align=center valign=top>
+				<span class=smallNote>Thursday  January   06, 2005 12:00 AM</span><br><br>
+				<span class=notetitle>VALID DUE DATES & LSR CUTOFF TIME</span><br><Br>
+				<table><tr>
+<TD BGCOLOR=pink><font color=blue><font size=4>REMINDER</font><BR>
+<BR>
+As per the notice that was originally posted on <b> August 9th,</b> valid due dates will be required.  Please see the original Requirement Notification on the right.<BR>
+<BR>
+</td><TD BGCOLOR=pink><font color=blue><font size=4><CENTER>REQUIREMENT NOTIFICATION</font></CENTER></font><BR>
+<BR>
+Effective, <b>September 9th 2004,</b> ALLTEL will begin requiring valid due dates on the <b>Resale LSR''''s.</b>  Anything submitted before 1:00 PM CST can request the same day due date.  Anything submitted after 1:00 Pm CST will require the next  day due date.  If an order is rejected, a valid due date, following the above rules, will be required.  Invalid due dates will be rejected.<BR>
+<BR>
+<b><CENTER>****Due dates may NOT always be granted due to workload****</b></CENTER>
+</td></tr></table>
+				</td>
+				</TR>	
+				<tr><td>&nbsp;</td></tr>	
+			
+					<TR class= rowodd>
+				
+				
+				<TD class=smaller align=center valign=top>
+				<span class=smallNote>Thursday  December  30, 2004 12:00 AM</span><br><br>
+				<span class=notetitle>BERRIEN COUNTY 911</span><br><Br>
+				<font size=+1>January Bill Messages</font><br><hl>
+<a href=docs/GABerrien911.doc>GA - Berrien County 911 Message</a><br><br>
+				</td>
+				</TR>	
+				<tr><td>&nbsp;</td></tr>	
+			
+				<TR class=roweven>
+				
+				
+				<TD class=smaller align=center valign=top>
+				<span class=smallNote>Thursday  December  30, 2004 12:00 AM</span><br><br>
+				<span class=notetitle>CUSTER COUNTY 911</span><br><Br>
+				<font size=+1>January Bill Messages</font><br><hl>
+<a href=docs/OKCuster911.doc>OK - Custer County 911 Message</a><br>
+				</td>
+				</TR>	
+				<tr><td>&nbsp;</td></tr>	
+			
+					<TR class= rowodd>
+				
+				
+				<TD class=smaller align=center valign=top>
+				<span class=smallNote>Thursday  December  30, 2004 12:00 AM</span><br><br>
+				<span class=notetitle>HAMMON COUNTY 911</span><br><Br>
+				<font size=+1>January Bill Messages</font><br><hl>
+<a href=docs/OKHammon911.doc>OK - Hammon 911 Message</a><br>
+				</td>
+				</TR>	
+				<tr><td>&nbsp;</td></tr>	
+			
+				<TR class=roweven>
+				
+				
+				<TD class=smaller align=center valign=top>
+				<span class=smallNote>Thursday  December  30, 2004 12:00 AM</span><br><br>
+				<span class=notetitle>FILLMORE COUNTY 911</span><br><Br>
+				<font size=+1>January Bill Messages</font><br><hl>
+<a href=docs/NEFillmore911.doc>NE - Fillmore 911 Message</a><br>
+				</td>
+				</TR>	
+				<tr><td>&nbsp;</td></tr>	
+			
+			</TABLE>
+			<BR CLEAR=ALL><BR>
+	   
+
+<BR>
+
+</body>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<br clear=all><br>
+<hr>
+<center>
+<font size=-3 face=Arial,Helvetica>Copyright &copy 2002 ALLTEL Corporation. All rights reserved.&nbsp;
+<a href="http://www.alltel.com/legal/legal_notices.html">Legal Notices.</a>
+</font>
+<br><br>
+</center>
+<SELECT ID="POPUP_MSG" NAME="POPUP_MSG" style="position:absolute;background-color:yellow;border-color:black;z-index:9999" READONLY>
+<OPTION></OPTION>
+</SELECT>
+
+<SCRIPT LANGUAGE="JavaScript">
+var isNS = (navigator.appName == "Netscape" && parseInt(navigator.appVersion) >= 4);
+ 
+var HIDDEN = (isNS) ? 'hide' : 'hidden';
+var VISIBLE = (isNS) ? 'show' : 'visible';
+
+function showpopupmsg(theMsg)
+{
+	for (var z=POPUP_MSG.options.length ; z >= 0 ; z--) POPUP_MSG.options[z]=null;
+	var s_size=0;
+	var s_option;
+	var x = 0;
+	var last_idx = 0;
+	for (x = 0 ; x < theMsg.length ; x++ )
+	{
+		if (theMsg.substr(x,1) == "|")
+		{
+			s_option = document.createElement("option") ;
+			s_option.text = theMsg.substring(last_idx,x);
+			POPUP_MSG.add(s_option) ;
+			s_size++;
+			last_idx = x + 1;
+		}
+	}
+	if (x != last_idx)
+	{
+			s_option = document.createElement("option") ;
+			s_option.text = theMsg.substring(last_idx);
+			POPUP_MSG.add(s_option) ;
+			s_size++;
+	}
+
+	if (window.event.y < 350) {	POPUP_MSG.style.top=window.event.y + document.body.scrollTop + 15; }
+	else { POPUP_MSG.style.top=window.event.y + document.body.scrollTop - 15 - (s_size * 15); }
+	if (window.event.x < 500) { POPUP_MSG.style.left=window.event.x + 10; }
+	else { POPUP_MSG.style.left=window.event.x - 200; }
+
+	POPUP_MSG.size=s_size;
+	POPUP_MSG.style.visibility = VISIBLE;
+}
+function hidepopupmsg()
+{
+	POPUP_MSG.style.visibility = HIDDEN;
+}
+hidepopupmsg(); 
+</SCRIPT>
+
+</html>
+
+
+

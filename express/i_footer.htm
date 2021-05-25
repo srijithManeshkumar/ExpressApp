@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<br clear=all><br>
+
+	<div class=footer>
+    <div style="margin-left:500px">
+<font face=Arial,Helvetica>Copyright 2006 Windstream Communications. All rights reserved.&nbsp;
+<a href="http://www.windstream.com/legal.aspx">Legal Notices.</a>
+</font>
+    </div>
+    <br>
+
+<SELECT ID="POPUP_MSG" NAME="POPUP_MSG" style="position:absolute;background-color:yellow;border-color:black;z-index:9999" READONLY>
+<OPTION></OPTION>
+</SELECT>
+</div>
+<SCRIPT LANGUAGE="JavaScript">
+var isNS = (navigator.appName == "Netscape" && parseInt(navigator.appVersion) >= 4);
+ 
+var HIDDEN = (isNS) ? 'hide' : 'hidden';
+var VISIBLE = (isNS) ? 'show' : 'visible';
+
+function showpopupmsg(theMsg)
+{
+	for (var z=POPUP_MSG.options.length ; z >= 0 ; z--) POPUP_MSG.options[z]=null;
+	var s_size=0;
+	var s_option;
+	var x = 0;
+	var last_idx = 0;
+	for (x = 0 ; x < theMsg.length ; x++ )
+	{
+		if (theMsg.substr(x,1) == "|")
+		{
+			s_option = document.createElement("option") ;
+			s_option.text = theMsg.substring(last_idx,x);
+			POPUP_MSG.add(s_option) ;
+			s_size++;
+			last_idx = x + 1;
+		}
+	}
+	if (x != last_idx)
+	{
+			s_option = document.createElement("option") ;
+			s_option.text = theMsg.substring(last_idx);
+			POPUP_MSG.add(s_option) ;
+			s_size++;
+	}
+
+	if (window.event.y < 350) {	POPUP_MSG.style.top=window.event.y + document.body.scrollTop + 15; }
+	else { POPUP_MSG.style.top=window.event.y + document.body.scrollTop - 15 - (s_size * 15); }
+	if (window.event.x < 500) { POPUP_MSG.style.left=window.event.x + 10; }
+	else { POPUP_MSG.style.left=window.event.x - 200; }
+
+	POPUP_MSG.size=s_size;
+	POPUP_MSG.style.visibility = VISIBLE;
+}
+function hidepopupmsg()
+{
+	POPUP_MSG.style.visibility = HIDDEN;
+}
+hidepopupmsg(); 
+</SCRIPT>
+

@@ -1,0 +1,339 @@
+BODY
+{font-family: "arial";
+background: #FFFFFE;
+font-size: 8pt}
+
+BODY5
+{font-family: "arial";
+background: #FFFFF0;
+font-size: 8pt}
+
+P
+{font-family: "arial";
+font-size: 8pt}
+
+TH
+{font-family: "arial";
+font-size: 8pt}
+
+TD
+{font-family: "arial";
+font-size: 8pt}
+
+A
+{font-family: "arial";
+font-size: 12px;
+font-weight:bold;
+text-decoration:none;
+color: #0D5C91
+}
+
+a:hover
+{font-family: "arial";
+font-size: 12px;
+font-weight:bold;
+text-decoration:none;
+color: #E8b012
+}
+
+
+TABLE{
+	border-color: #E8E5E2;
+}
+
+
+A:visited {
+font-family: "arial";
+font-size: 12px;
+font-weight:bold;
+text-decoration:none;
+color: #0D5C91}
+
+
+A:active { 
+font-family: "arial";
+font-size: 12px;
+font-weight:bold;
+text-decoration:none;
+color: #E8b012
+}
+
+
+A.linklabel
+{font-family: "arial";
+font-size: 12px;
+font-weight:bold;
+text-decoration:none;
+color: #7AABDE
+}
+
+FORM
+{font-family: "arial";
+font-size: 8pt}
+
+TEXTAREA
+{font-family: "tahom,verdana,arial";
+font-size: 8pt}
+
+TEXTAREA.readonly
+{font-family: "tahom,verdana,arial";
+background: #cccccc;
+font-size: 8pt}
+
+SELECT
+{font-family: "arial";
+font-size: 8pt}
+
+SELECT.readonly
+{font-family: "arial";
+background: #cccccc;
+font-size: 8pt}
+
+OPTION
+{font-family: "arial";
+font-size: 8pt}
+
+INPUT
+{font-family: "verdana";
+font-size: 8pt}
+
+INPUT.readonly
+{font-family: "verdana";
+background: #cccccc;
+font-size: 8pt}
+
+BUTTON
+{
+
+font: bold 10px arial;
+padding: 2px;
+padding-left: 2px;
+display: block;
+color: #FFFFFF;
+text-decoration: none;
+background-color: #7DBA00;
+border: 2px double #7DBAFFF;
+
+}
+
+SPAN.header1
+{color:#E8B012;
+font-family: "arial";
+font-weight:bold;
+text-align:LEFT;
+font-size:19px
+}
+
+
+
+SPAN.barheader
+{
+color:#000000;
+font-family: "arial";
+font-weight:bold;
+text-align:center;
+font-size:#17px;
+background:#E5F1CC
+
+}
+
+
+
+SPAN.barheaderlink
+{color:#7AABDE;
+font-family: "arial";
+font-weight:bold;
+text-align:center;
+font-size:10pt}
+
+
+SPAN.smallstyle1
+{font-size: 8pt;
+font-family: "arial";
+font-weight:bold;
+color: #336699}
+
+SPAN.errormsg
+{color: #ff0000;
+font-family: "arial";
+font-size: 8pt}
+
+SPAN.errorfield
+{color: #ff0000;
+font-family: "arial";
+font-size: 8pt}
+
+SPAN.style2
+{font-size: 8pt;
+font-family: "arial"}
+
+SPAN.style3
+{font-family: "arial";
+font-size: 8pt}
+
+SPAN.style4
+{font-family: "arial";
+font-size: 8pt}
+
+SPAN.style5
+{font-family: "arial";
+font-size: 8pt}
+
+SPAN.background4
+{background: #00cc33}
+SPAN.background3
+{background: #33ffcc}
+SPAN.background2
+{background: #ffcccc}
+SPAN.background1
+{background: #ff0033}
+SPAN.background0
+{background: #ffff66}
+
+H1
+{text-align:center;
+font-family: "arial";
+color:#336699;}
+
+.rowodd{
+	background-color: #dDddde;
+	font-family: verdana, Helvetica, sans-serif; 
+	font-size: 12px; 
+}
+.roweven{
+	background-color: #FFFFFF;
+	font-family: verdana, Helvetica, sans-serif; 
+	font-size: 12px; 
+}
+.rowheader{font-family: Arial, Helvetica, sans-serif;
+	font-size: 10pt;
+	font-weight: bold;
+	color: #000000;
+	background-color: #dddddd;
+}
+.tabletext {  
+	font-family: verdana, Helvetica, sans-serif; 
+	font-size: 10px; 
+	color: #000000; 
+	text-align: center
+}
+
+.tHeader {
+	font-family:Arial, Helvetica, sans-serif;
+	font-size: 14px;font-weight: bold;
+	color:#000000;background-color:#E5F1CC;
+	text-align: center;
+}
+.theader2 {
+	font-family:Arial, Helvetica, sans-serif;
+	font-size: 13px;font-weight: bold;
+	color:#FFFFFF;background-color: #E5F1CC !important;
+}
+.tFooter {
+	font-family:Arial, Helvetica, sans-serif;
+	font-size: 13px;font-weight: bold;
+	color:#000000 !important;
+}
+.smaller {  
+font-family: verdana, Helvetica, sans-serif; 
+font-size: 10px; 
+color: #000000
+}
+
+.smallNote {  
+font-family: verdana, Helvetica, sans-serif; 
+font-size: 9px; 
+color: #000000
+}
+
+.notetitle
+{
+	font-family: verdana, Helvetica, sans-serif;
+	font-size: 13px;
+	font-weight: bold;
+	text-transform: uppercase;
+	font-variant: normal;
+	color: #000000;
+	text-align: left;
+	text-decoration: underline;
+	background-color: #FFFFFFf;
+
+}
+
+.egrpodd{
+	background-color: #ffeed0;
+	font-family: verdana, Helvetica, sans-serif; 
+	font-size: 12px; 
+}
+.egrpeven{
+	background-color: #ffeed0;
+	font-family: verdana, Helvetica, sans-serif; 
+	font-size: 12px; 
+}
+table.grouptable
+{
+	font-family: verdana, Helvetica, sans-serif;
+	font-size: 9px;	
+	border-color: #E8E5E2;
+	align: center;
+	text-align: left;
+}
+
+.slaDue{
+font-family: "arial";
+background-color: #FF0000;
+font-weight: bold;
+font-variant: normal;
+color: #FFFFFF;
+}
+.slaDue A:hover{
+ color: #0033FF; 
+ font-weight: bold;
+ }
+.slaDue A{
+  	color: #FFFFFF;
+  	font-weight: bold;
+ }
+ 
+ .slawarning{
+font-family: "arial";
+background-color: #FFFF00;
+font-weight: bold;
+font-variant: normal;
+}
+.slawarning A:hover{
+ color: #0033FF; 
+ font-weight: bold;
+ }
+.slawarning A{
+  	font-weight: bold;
+ }
+
+input.appButton{
+font: bold 10px arial;
+font-family: Arial, Helvetica, sans-serif;
+font-size: 12px;
+display: block;
+color: #FFFFFF;
+border-color: #7DBA00 #7DBA00 #7DBA00 #7DBA00;
+background-color: #7DBA00; border-style: double;
+border-top-width: 3px;
+border-right-width: 3px;
+border-bottom-width:3px; 
+border-left-width: 3px;
+}
+
+div.footer{
+font: bold -3 arial;
+display: block;
+color: #7AABDE;
+background-color: #BEDC7F;
+}
+HR
+{
+noshade: noshade; 
+size: 2px;
+width: 100%;
+align: center;
+color:#8273ba;
+}
